@@ -1,0 +1,29 @@
+services:
+
+  backend:
+    container_name: backend
+    image: scraly/backend-docker:1.0.0
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    networks:
+      - backend
+  
+  frontend:
+    container_name: frontend
+    image: scraly/frontend-docker:1.0.1
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    networks:
+      - backend
+    depends_on:
+      - backend
+    
+networks:
+  backend:
+    driver: bridge
